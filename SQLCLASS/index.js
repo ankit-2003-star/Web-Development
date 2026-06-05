@@ -127,7 +127,37 @@ app.patch('/user/:id', (req, res) => {
         res.status(500).send("Some error in DB");
     }
 });
+app.get('/users/new', (req, res) => {
+    res.render('new.ejs');
+});
+app.post('/users', (req, res) => {
+    let { username, email, password } = req.body;
+    let id = uuidv4();
+    let q = `INSERT INTO user (id, username, email, password) VALUES ('${id}', '${username}', '${email}', '${password}')`;
 
+    try {
+        connection.query(q, (err, results) => {
+            if (err) throw err;
+            res.redirect('/user');
+        });
+    } catch (err) {
+        console.error("Error connecting to the database:", err);
+        res.status(500).send("Internal Server Error");
+    }
+});
+app.delete('/user/:id', (req, res) => {
+    let {id} = req.params;
+    let q = `DELETE FROM user WHERE id = '${id}'`;
+    try {
+        connection.query(q, (err, results) => {
+            if (err) throw err;
+            res.redirect('/user');
+        });
+    } catch (err) {
+        console.error("Error connecting to the database:", err);
+        res.status(500).send("Internal Server Error");
+    }
+});
 app.listen(3000, () => {
     console.log("Server is running on port 3000");
 });

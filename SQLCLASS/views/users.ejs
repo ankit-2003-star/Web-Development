@@ -17,6 +17,9 @@
 </head>
 <body>
     <h2>Users</h2>
+    <form action="/users/new" method="GET">
+        <button type="submit">Add User</button>
+    </form>
     <table>
         <thead>
             <tr>
@@ -36,6 +39,9 @@
                     <td>
                         <form action="/user/<%= user.id %>/edit" method="GET">
                             <button type="submit">Edit</button>
+                        </form>
+                        <form action="/user/<%= user.id %>?_method=DELETE" method="POST">
+                            <button type="submit">Delete</button>
                         </form>
                     </td>
                 </tr>

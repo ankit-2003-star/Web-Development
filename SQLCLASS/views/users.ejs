@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
+    <style>
+        table,tr,th,td{
+            border: 1px solid black;
+            /* border-collapse: collapse; */
+            padding: 5px;
+        }
+        th{
+            background-color: lightgray;
+        }
+    </style>
+</head>
+<body>
+    <h2>Users</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Serial No.</th>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% data.forEach(user => { %>
+                <tr>
+                    <td><%= data.indexOf(user) + 1 %></td>
+                    <td><%= user.id %></td>
+                    <td><%= user.username %></td>
+                    <td><%= user.email %></td>
+                    <td>
+                        <form action="/user/<%= user.id %>/edit" method="GET">
+                            <button type="submit">Edit</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</body>
+</html>
